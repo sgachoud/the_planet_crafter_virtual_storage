@@ -1,0 +1,106 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(MSBuildProjectDirectory)\environment.props"
+          Condition="Exists('$(MSBuildProjectDirectory)\environment.props')" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>VirtualStorage</AssemblyName>
+    <RootNamespace>VirtualStorage</RootNamespace>
+    <LangVersion>10</LangVersion>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <!-- Launch game directly from VS/Rider Debug run -->
+    <StartAction Condition="'$(OS)' == 'Windows_NT'">Program</StartAction>
+    <StartProgram Condition="'$(OS)' == 'Windows_NT'">$(PLANET_CRAFTER_INSTALL)\Planet Crafter.exe</StartProgram>
+    <StartWorkingDirectory Condition="'$(OS)' == 'Windows_NT'">$(PLANET_CRAFTER_INSTALL)</StartWorkingDirectory>
+  </PropertyGroup>
+
+  <!-- Convenience shorthands defined from environment.props -->
+  <PropertyGroup>
+    <GameManaged>$(PLANET_CRAFTER_INSTALL)\Planet Crafter_Data\Managed</GameManaged>
+    <BepInExCore>$(BEPINEX_PATH)\core</BepInExCore>
+  </PropertyGroup>
+
+  <!-- Game assemblies — not copied to output -->
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>$(GameManaged)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(GameManaged)\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(GameManaged)\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GameManaged)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(GameManaged)\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(GameManaged)\UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(GameManaged)\UnityEngine.UIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(GameManaged)\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(GameManaged)\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(GameManaged)\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.InputSystem">
+      <HintPath>$(GameManaged)\Unity.InputSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>$(GameManaged)\Unity.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.Netcode.Runtime">
+      <HintPath>$(GameManaged)\Unity.Netcode.Runtime.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- BepInEx / Harmony — not copied to output -->
+  <ItemGroup>
+    <Reference Include="BepInEx">
+      <HintPath>$(BepInExCore)\BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(BepInExCore)\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="BepInEx.Harmony">
+      <HintPath>$(BepInExCore)\BepInEx.Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuildPublishWin" AfterTargets="Build" Condition=" '$(OS)' == 'Windows_NT' ">
+    <Exec Command="powershell.exe -ExecutionPolicy RemoteSigned -File &quot;$(MSBuildProjectDirectory)\scripts\publish.ps1&quot; -Target &quot;$(ConfigurationName)&quot; -TargetPath &quot;$(TargetDir.TrimEnd('\'))&quot; -TargetAssembly &quot;$(TargetFileName)&quot; -PlanetCrafterPath &quot;$(PLANET_CRAFTER_INSTALL.TrimEnd('\'))&quot; -DeployPath &quot;$(MOD_DEPLOYPATH.TrimEnd('\'))&quot; -ProjectPath &quot;$(MSBuildProjectDirectory.TrimEnd('\'))&quot;" />
+  </Target>
+
+  <Target Name="PostBuildPublishUnix" AfterTargets="Build" Condition=" '$(OS)' == 'Unix' ">
+    <Exec Command="sh &quot;$(MSBuildProjectDirectory)/scripts/publish.sh&quot; --target &quot;$(ConfigurationName)&quot; --target-path &quot;$(TargetDir)&quot; --target-assembly &quot;$(TargetFileName)&quot; --planet-crafter-path &quot;$(PLANET_CRAFTER_INSTALL)&quot; --deploy-path &quot;$(MOD_DEPLOYPATH)&quot; --project-path &quot;$(MSBuildProjectDirectory)&quot;" />
+  </Target>
+
+</Project>

@@ -1,0 +1,18 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+.idea/
+environment.props
+
+# Built mod output (populated by the publish script)
+Package/plugins/
+
+# Claude Code session data
+.claude/
+ASSEMBLY_NOTES.md
+
+# Release archives
+*.zip
+*.nupkg

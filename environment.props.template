@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!-- Path to the base Planet Crafter game folder -->
+    <PLANET_CRAFTER_INSTALL>X:\Path\To\Steam\steamapps\common\The Planet Crafter</PLANET_CRAFTER_INSTALL>
+    <!-- Root BepInEx folder (must contain a "core" sub-folder with BepInEx.dll) -->
+    <BEPINEX_PATH>X:\Path\To\BepInEx</BEPINEX_PATH>
+    <!-- Folder where the built DLL gets copied after each Debug build -->
+    <MOD_DEPLOYPATH>X:\Path\To\BepInEx\plugins</MOD_DEPLOYPATH>
+  </PropertyGroup>
+</Project>
