@@ -88,12 +88,18 @@ The **Import All** button is tinted blue to distinguish it from *Export All*. Wh
 
 ---
 
-## License
-
-Apache 2.0 — see [LICENSE](LICENSE).
-
----
-
 ## AI
 
 This mode has been developed with the assistance of Claude AI of Anthropic.
+
+---
+
+## Issue and Contribution
+
+I read close to 0 line of the code produced by Claude. Therefore, the code might be ineficient and buggy beyond my knowledge. If you find any issues, please report them on the git page. Pull requests are welcome, even if their only point is to make the code more handsome ;).
+
+---
+
+## License
+
+Apache 2.0 — see [LICENSE](LICENSE).
