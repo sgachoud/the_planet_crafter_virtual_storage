@@ -90,4 +90,4 @@ The **Import All** button is tinted blue to distinguish it from *Export All*. Wh
 
 ## License
 
-MIT
+Apache 2.0 — see [LICENSE](LICENSE).
