@@ -1,0 +1,9 @@
+{
+    "name": "VirtualStorage",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/sgachoud/VirtualStorage",
+    "description": "Adds a Virtual Storage machine: a limitless, power-consuming, inventory with per-item limits for automation and a logistic Import All button.",
+    "dependencies": [
+        "BepInEx-BepInExPack-5.4.2305"
+    ]
+}
